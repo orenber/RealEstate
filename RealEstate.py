@@ -171,7 +171,7 @@ name = 'Real_Estate' +" " + str(current_time)
 filename= "%s.csv" % name
 with open(filename, 'w', newline='') as output_file:
     dict_writer = csv.DictWriter(output_file,["Selling Date", "Adresss", "Block", "App. Type", "Num. of rooms",
-                                              "Floor", "Surface", "Selling Price", "Change in return", "City"])
+                                               "Floor", "Surface", "Selling Price", "Change in return", "City"])
     dict_writer.writeheader()
     dict_writer.writerows(the_list)
 

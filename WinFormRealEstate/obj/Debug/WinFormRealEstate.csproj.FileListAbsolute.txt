@@ -1,10 +1,9 @@
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\bin\Debug\WinFormRealEstate.exe.config
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\bin\Debug\WinFormRealEstate.exe
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\bin\Debug\WinFormRealEstate.pdb
-C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.csprojAssemblyReference.cache
-C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.Form1.resources
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.Properties.Resources.resources
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.csproj.GenerateResource.cache
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.csproj.CoreCompileInputs.cache
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.exe
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.pdb
+C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.Form.resources
