@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WinFormRealEstate"
   ],
-  "SelectedNode": "\\RealEstate.py",
+  "SelectedNode": "\\WinFormRealEstate\\Properties",
   "PreviewInSolutionExplorer": false
 }

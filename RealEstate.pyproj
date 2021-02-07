@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{c8270124-647f-4c4c-8f6a-36153393d484}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>ConncetDataBase.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ConncetDataBase.py" />
+    <Compile Include="RealEstate.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WindowsFormRealEstate\WindowsFormRealEstate\obj\Debug\WindowsFormRealEstate.csproj.FileListAbsolute.txt" />
+    <Content Include="WinFormRealEstate\obj\Debug\WinFormRealEstate.csproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WindowsFormRealEstate\" />
+    <Folder Include="WindowsFormRealEstate\WindowsFormRealEstate\" />
+    <Folder Include="WindowsFormRealEstate\WindowsFormRealEstate\obj\" />
+    <Folder Include="WindowsFormRealEstate\WindowsFormRealEstate\obj\Debug" />
+    <Folder Include="WinFormRealEstate\" />
+    <Folder Include="WinFormRealEstate\obj\" />
+    <Folder Include="WinFormRealEstate\obj\Debug" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
