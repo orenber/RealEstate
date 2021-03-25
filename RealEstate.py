@@ -9,24 +9,27 @@ from selenium.common.exceptions import ElementNotVisibleException
 import csv
 import datetime 
 import time
+import Estate
+
+
 
 def is_empty(string):
     return len(string.strip())==0
 
 
 conn = pyodbc.connect('Driver={SQL Server};'
-                      'Server=ORENBER-PC\MSSQLSERVER2008;'
+                      'Server=DESKTOP-JD951D0\SQLEXPRESS;'
                       'Database=RealEstate;'
                       'Trusted_Connection=yes;')
 
 cursor = conn.cursor()
-cursor.execute('SELECT * FROM purchase')
+cursor.execute('SELECT * FROM Property')
 
 for row in cursor:
     print(row)
 
 start_time = time.time() # to measure running time
-path = "C:\Program Files (x86)\Google\Chrome\Application\87.0.4280.88\chromedriver.exe"
+path = "C:\Program Files (x86)\Google\driver\chromedriver.exe"
 
 def validate(date_text):
     '''This function helps us check wheater the string contain date'''
@@ -100,7 +103,6 @@ for city in cities:
             new_row = r.text #  Convert to text
             lst.append(new_row)
 
-
         data = []
         new_row = []
         for i in range(0, len(lst)):
@@ -108,9 +110,10 @@ for city in cities:
             new_row.append(lst[i])
             if validate(lst[i]):
                 new_row.remove(lst[i])
+               
                 data.append(new_row)
                 new_row = [lst[i]]
-
+        Estate.deals_property(data)
 
         temp_dict = {}
         for i in data:
@@ -142,42 +145,43 @@ for city in cities:
 
                 else:
                     if is_empty(i[3]):
-                        i[3]=float(0)
+                        i[3]= "0"
                     temp_dict = {**temp_dict, **{"Num. of rooms": i[3]}}
 
                 if "\u0590" <= i[4] <= "\u05EA":
                     temp_dict = {**temp_dict, **{"Floor": i[4]}}
 
                 else:
-                    temp_dict = {**temp_dict, **{"Num. of rooms": float(i[4])}} 
+                    temp_dict = {**temp_dict, **{"Num. of rooms": i[4]}} 
 
 
                 if "\u0590" <= i[5] <= "\u05EA":
                     temp_dict = {**temp_dict, **{"Floor": i[5]}}
 
                 else:
-                    temp_dict = {**temp_dict, **{"Surface": float(i[5])}}
+                    temp_dict = {**temp_dict, **{"Surface": i[5]}}
 
                 if '.' in i[6] or len(i[6]) < 4:
-                    temp_dict = {**temp_dict, **{"Surface": float(i[6])}}
+                    temp_dict = {**temp_dict, **{"Surface": i[6]}}
 
                 else:
-                    temp_dict = {**temp_dict, **{"Selling Price": float(i[6].replace(",",""))}}
+                    temp_dict = {**temp_dict, **{"Selling Price": i[6]}}
 
                 if "%" in i[7]:
                     temp_dict = {**temp_dict, **{"Change in return": i[7]}}
 
                 else:
-                    if is_empty(i[7]):
-                        i[7]=float(0)
-                    else:
-                        i[7] = float(i[7].replace(",",""))
-                    temp_dict = {**temp_dict, **{"Selling Price": i[7] }}
+                    i[7]=""
+
+                temp_dict = {**temp_dict, **{"Selling Price": i[7] }}
 
 
                 if "%" in i[8]:
                     temp_dict = {**temp_dict, **{"Change in return": i[8]}}
+                else:
+                    i[8]=""
 
+                temp_dict = {**temp_dict, **{"Change in return": i[8]}}
                 temp_dict = {**temp_dict, **{"City": city}}
 
                 the_list.append(temp_dict)
@@ -200,18 +204,46 @@ end_time = time.time()
 
 running_time = (end_time - start_time)/60
 for n in range(0,len(the_list)):
-    cursor.execute('spInsertDeal '+
-                   the_list[n]['Block']+","+
-                   the_list[n]['Selling Date']+","+
-                   the_list[n]['City']+","+
-                   the_list[n]['Adresss']+","+
-                   the_list[n]['App. Type']+","+
-                   the_list[n]['Num. of rooms']+","+
-                   the_list[n]['Floor']+","+
-                   the_list[n]['Surface']+","+
-                   the_list[n]['Selling Price']+","+
-                   the_list[n]['Change in return']
-                         )
+     
+     block = the_list[n]['Block']
+     selling_Date = datetime.datetime.strptime(the_list[n]["Selling Date"],'%d/%m/%Y').strftime("%Y-%m-%d")
+     adresss = street
+     city = the_list[n]['City']
+     type_estate = the_list[n]['App. Type']
+     rooms = float(the_list[n]['Num. of rooms'])
+     floor_num = the_list[n]['Floor']
+     surface = float(the_list[n]['Surface'])
+     selling_price =the_list[n]['Selling Price']
+     price_change = the_list[n]['Change in return']
+ 
+     values = (block,selling_Date,
+               adresss,city,type_estate,
+               rooms,floor_num,surface,
+               selling_price,price_change)
+     store_procedure = """\
+     exec [RealEstate].[dbo].spInsertDeal \
+     @Block = ?, @Selling_Date = ?, @Adresss = ?,\
+     @City = ?, @Type_estate = ?, @Rooms = ?,\
+     @Floor_num = ?,@Surface = ?,\
+     @Selling_price=  ?,@Price_change =  ? """ 
+     
+     cursor.execute(store_procedure,values)
+     cursor.commit()
+
+
 print(f"FINISH! running time is {running_time} minutes")
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
