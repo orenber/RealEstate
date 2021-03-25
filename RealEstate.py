@@ -1,7 +1,7 @@
 
 # !pip install selenium
 # WebDriver installation required
-
+import pyodbc 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
@@ -10,9 +10,23 @@ import csv
 import datetime 
 import time
 
+def is_empty(string):
+    return len(string.strip())==0
+
+
+conn = pyodbc.connect('Driver={SQL Server};'
+                      'Server=ORENBER-PC\MSSQLSERVER2008;'
+                      'Database=RealEstate;'
+                      'Trusted_Connection=yes;')
+
+cursor = conn.cursor()
+cursor.execute('SELECT * FROM purchase')
+
+for row in cursor:
+    print(row)
 
 start_time = time.time() # to measure running time
-path = "C:\Program Files (x86)\Google\driver\chromedriver.exe"
+path = "C:\Program Files (x86)\Google\Chrome\Application\87.0.4280.88\chromedriver.exe"
 
 def validate(date_text):
     '''This function helps us check wheater the string contain date'''
@@ -28,7 +42,7 @@ cities = ["פתח תקווה"]
 street = ' רמב"ם 38 ' 
 room = ["4"]
 
-
+ 
 for city in cities:
     driver = webdriver.Chrome(path)
     main_url = 'https://www.nadlan.gov.il/' # That is the site
@@ -127,32 +141,38 @@ for city in cities:
                     temp_dict = {**temp_dict, **{"App. Type": i[3]}}
 
                 else:
+                    if is_empty(i[3]):
+                        i[3]=float(0)
                     temp_dict = {**temp_dict, **{"Num. of rooms": i[3]}}
 
                 if "\u0590" <= i[4] <= "\u05EA":
                     temp_dict = {**temp_dict, **{"Floor": i[4]}}
 
                 else:
-                    temp_dict = {**temp_dict, **{"Num. of rooms": i[4]}}
+                    temp_dict = {**temp_dict, **{"Num. of rooms": float(i[4])}} 
 
 
                 if "\u0590" <= i[5] <= "\u05EA":
                     temp_dict = {**temp_dict, **{"Floor": i[5]}}
 
                 else:
-                    temp_dict = {**temp_dict, **{"Surface": i[5]}}
+                    temp_dict = {**temp_dict, **{"Surface": float(i[5])}}
 
                 if '.' in i[6] or len(i[6]) < 4:
-                    temp_dict = {**temp_dict, **{"Surface": i[6]}}
+                    temp_dict = {**temp_dict, **{"Surface": float(i[6])}}
 
                 else:
-                    temp_dict = {**temp_dict, **{"Selling Price": i[6]}}
+                    temp_dict = {**temp_dict, **{"Selling Price": float(i[6].replace(",",""))}}
 
                 if "%" in i[7]:
                     temp_dict = {**temp_dict, **{"Change in return": i[7]}}
 
                 else:
-                    temp_dict = {**temp_dict, **{"Selling Price": i[7]}}
+                    if is_empty(i[7]):
+                        i[7]=float(0)
+                    else:
+                        i[7] = float(i[7].replace(",",""))
+                    temp_dict = {**temp_dict, **{"Selling Price": i[7] }}
 
 
                 if "%" in i[8]:
@@ -179,6 +199,19 @@ with open(filename, 'w', newline='') as output_file:
 end_time = time.time()
 
 running_time = (end_time - start_time)/60
-
+for n in range(0,len(the_list)):
+    cursor.execute('spInsertDeal '+
+                   the_list[n]['Block']+","+
+                   the_list[n]['Selling Date']+","+
+                   the_list[n]['City']+","+
+                   the_list[n]['Adresss']+","+
+                   the_list[n]['App. Type']+","+
+                   the_list[n]['Num. of rooms']+","+
+                   the_list[n]['Floor']+","+
+                   the_list[n]['Surface']+","+
+                   the_list[n]['Selling Price']+","+
+                   the_list[n]['Change in return']
+                         )
 print(f"FINISH! running time is {running_time} minutes")
 
+ 
