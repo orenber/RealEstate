@@ -21,6 +21,7 @@
   <ItemGroup>
     <Compile Include="ConncetDataBase.py" />
     <Compile Include="RealEstate.py" />
+    <Compile Include="webRealEstate.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="WindowsFormRealEstate\WindowsFormRealEstate\obj\Debug\WindowsFormRealEstate.csproj.FileListAbsolute.txt" />

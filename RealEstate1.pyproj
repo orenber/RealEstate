@@ -27,7 +27,12 @@
     <Content Include="WinFormRealEstate\obj\Debug\WinFormRealEstate.csproj.FileListAbsolute.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="WindowsFormRealEstate\" />
+    <Folder Include="WindowsFormRealEstate\WindowsFormRealEstate\" />
+    <Folder Include="WindowsFormRealEstate\WindowsFormRealEstate\obj\" />
     <Folder Include="WindowsFormRealEstate\WindowsFormRealEstate\obj\Debug" />
+    <Folder Include="WinFormRealEstate\" />
+    <Folder Include="WinFormRealEstate\obj\" />
     <Folder Include="WinFormRealEstate\obj\Debug" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
