@@ -25,20 +25,21 @@ def exsport_sql(estat_deal:dict)->None:
                    estat_deal[n]["Price"],
                    estat_deal[n]["Change"]);
 
-        store_procedure = """\
-        exec [RealEstate].[dbo].spInsertDeal \
-        @Block = ?,\ 
-        @Selling_Date = ?,\ 
-        @Adresss = ?,\
-        @City = ?, \
-        @Type_estate = ?,\ 
-        @Rooms = ?,\
-        @Floor_num = ?,\
-        @Surface = ?,\
-        @Selling_price = ?,\
-        @Price_change =  ? """ 
+        store_procedure = """
+        exec [RealEstate].[dbo].spInsertDeal
+        @Block = ?,
+        @Selling_Date = ?, 
+        @Adresss = ?,
+        @City = ?, 
+        @Type_estate = ?, 
+        @Rooms = ?,
+        @Floor_num = ?,
+        @Surface = ?,
+        @Selling_price = ?,
+        @Price_change =  ? 
+        """ 
      
-        cursor.execute(store_procedure,values)
+        cursor.execute(store_procedure,values[:])
         cursor.commit()
     
         pass
