@@ -8,3 +8,5 @@ C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFo
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.csproj.CoreCompileInputs.cache
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.exe
 C:\Users\OWNER\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.pdb
+C:\Users\orenber\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.exe
+C:\Users\orenber\Source\Repos\orenber\RealEstate\WinFormRealEstate\obj\Debug\WinFormRealEstate.pdb
