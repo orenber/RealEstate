@@ -89,25 +89,27 @@ cursor.execute('SELECT * FROM Property')
 
 
 # connect to the web site 
-path = parser['files']['crome_driver_path']
+
 cities = ["פתח תקווה"]
 street = ' רמב"ם 38' 
 
-# That is the site
-main_url = parser['url']['site']
-for city in cities:
-
-    url = main_url + '/?search=' + city + street # This way we search every city
-    url = url.replace(" ","%20")
-    driver = webdriver.Chrome(path)
-    driver.get(url)
-    column_elements = driver.find_elements_by_class_name('tableCol')
+def extract_deals(cities:list,street:str)->dict:
+    # That is the site
+    main_url = parser['url']['site']
+    path = parser['files']['crome_driver_path']
+    
+    for city in cities:
+        url = main_url + '/?search=' + city + street # This way we search every city
+        url = url.replace(" ","%20")
+        driver = webdriver.Chrome(path)
+        driver.get(url)
+        column_elements = driver.find_elements_by_class_name('tableCol')
 
     
-    columns = [s.text for s in column_elements] 
+        columns = [s.text for s in column_elements] 
    
-    deals = deals_property(columns)
-
+        deals = deals_property(columns)
+    return deals
 
 # import web table 
 
