@@ -10,6 +10,10 @@ import numpy as np
 import copy
 import matplotlib.pyplot as plt
 from unicodedata import normalize
+from configparser import ConfigParser
+
+parser = ConfigParser()
+parser.read('setup.ini')
 
 
 def exsport_sql(estat_deal:dict)->None:
@@ -35,7 +39,7 @@ def exsport_sql(estat_deal:dict)->None:
         @Rooms = ?,
         @Floor_num = ?,
         @Surface = ?,
-        @Selling_price = ?,
+        @Price = ?,
         @Price_change =  ? 
         """ 
      
@@ -76,22 +80,21 @@ def deals_property(deals:list)->list:
 
     return estat_deal
 
-# connect to sql 
 
-conn = pyodbc.connect('Driver={SQL Server};'
-                      'Server=DESKTOP-JD951D0\SQLEXPRESS;'
-                      'Database=RealEstate;'
-                      'Trusted_Connection=yes;')
+# connect to sql 
+conn = pyodbc.connect(parser['sql']['conection_string'])
 
 cursor = conn.cursor()
 cursor.execute('SELECT * FROM Property')
 
 
 # connect to the web site 
-path = "C:\Program Files (x86)\Google\driver\chromedriver.exe"
+path = parser['files']['crome_driver_path']
 cities = ["פתח תקווה"]
 street = ' רמב"ם 38' 
-main_url = 'https://www.nadlan.gov.il/' # That is the site
+
+# That is the site
+main_url = parser['url']['site']
 for city in cities:
 
     url = main_url + '/?search=' + city + street # This way we search every city
@@ -111,12 +114,3 @@ for city in cities:
  
 # exsport table data to sql  
 exsport_sql(deals)
-
-
-
-
-
-
-
-
-
