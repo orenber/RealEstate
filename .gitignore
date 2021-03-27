@@ -5,6 +5,8 @@
 *.suo
 *.user
 *.pyproj
+*.csproj
+*.sqlite
 *.userosscache
 *.sln.docstates
 *.cs
